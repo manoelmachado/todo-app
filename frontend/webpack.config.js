@@ -24,6 +24,7 @@ module.exports = {
     module: {
         rules: [{
             test: /.js[x]?$/,
+            loader: 'babel-loader',
             exclude: /node_modules/,
             query: {
                 presets: ['es2015', 'react'],
@@ -31,6 +32,10 @@ module.exports = {
             }
         }, {
             test: /\.css$/,
+            loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader' })
+        }, {
+            test: /\.woff|.woff2|.tff|.eot|.svg*.*$/,
+            loader: 'file'
         }]
     }
 }
