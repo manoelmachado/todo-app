@@ -2,6 +2,7 @@ const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
+    mode: "production",
     entry: './src/index.jsx',
     output: {
         path: __dirname + '/public',
@@ -21,9 +22,12 @@ module.exports = {
         new ExtractTextPlugin('app.css')
     ],
     module: {
-        loaders: [{
+        rules: [{
             test: /.js[x]?$/,
             loader: 'babel-loader',
+            options: {
+                presets: ['@babel']
+            },
             exclude: /node_modules/,
             query: {
                 presets: ['es2015', 'react'],
@@ -31,7 +35,7 @@ module.exports = {
             }
         }, {
             test: /\.css$/,
-            loader: ExtractTextPlugin.extract('style-loader', 'css-loader')
+            use: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader' })
         }, {
             test: /\.woff|.woff2|.ttf|.eot|.svg*.*$/,
             loader: 'file'
