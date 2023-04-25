@@ -1,16 +1,31 @@
 import React from "react";
+import iconButton from "../template/iconButton";
 
-export default props => (
-    <div className='todoForm' role='form'>
-        <div className="col-xs-12 col-sm-9 col-md-10">
-            <input id="description" className="form-control"
-                placeholder="Adicione uma tarefa" />
-        </div>
+export default (props) => {
+  const renderRows = () => {
+    const list = props.list || [];
+    return list.map((todo) => (
+      <tr key={todo._id}>
+        <td>{todo.description}</td>
+        <td>
+          <iconButton
+            style="danger"
+            icon="trash-o"
+            onclick={() => props.handleRemove(todo)}/>
+        </td>
+      </tr>
+    ));
+  };
 
-        <div className="col-xs-12 col-sm-3 col-md-2">
-            <button className="btn btn-primary">
-                <i className="fa fa-plus"></i>
-            </button>
-        </div>
-    </div>
-)
+  return (
+    <table className="table">
+      <thead>
+        <tr>
+          <th>Descrição</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>{renderRows()}</tbody>
+    </table>
+  );
+};
