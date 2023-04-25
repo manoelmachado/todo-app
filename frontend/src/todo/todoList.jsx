@@ -9,9 +9,20 @@ export default (props) => {
         <td>{todo.description}</td>
         <td>
           <iconButton
+            style="success"
+            icon="check"
+            onClick={() => props.handleMarkAsDone(todo)}
+          />
+          <iconButton
+            style="warning"
+            icon="undo"
+            onClick={() => props.handleMarkAsPending(todo)}
+          />
+          <iconButton
             style="danger"
             icon="trash-o"
-            onclick={() => props.handleRemove(todo)}/>
+            onclick={() => props.handleRemove(todo)}
+          />
         </td>
       </tr>
     ));
